@@ -1,0 +1,16 @@
+{
+  "input_dir": "in",
+  "output_dir": "out",
+  "xml_extensions": [
+    ".xml"
+  ],
+  "recursive": true,
+  "copy_unmodified_xml": true,
+  "clear_output_before_run": false,
+  "zip_output": false,
+  "zip_file_name": "out.zip",
+  "delete_input_after_success": false,
+  "continue_on_xml_error": true,
+  "print_each_change": true,
+  "summary_file": "run_summary.json"
+}
