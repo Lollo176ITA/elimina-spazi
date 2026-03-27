@@ -20,6 +20,16 @@ Override rapido delle cartelle:
 python3 fix_causale_pur.py /percorso/in --output-dir /percorso/out
 ```
 
+## Build GitHub
+
+Il workflow GitHub Actions `.github/workflows/publish-build.yml` costruisce una versione Windows `.exe` e pubblica una branch `build` con:
+
+- `elimina-spazi.exe`
+- `config.json`
+- `build-info.json`
+- `SHA256SUMS.txt`
+- `README.md` con spiegazione d'uso
+
 ## Configurazione
 
 Il file `config.json` gestisce i parametri principali:
