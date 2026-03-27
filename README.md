@@ -1,6 +1,6 @@
 # elimina-spazi
 
-Script Python che legge file XML, corregge le occorrenze errate nei tag `<causale>` che contengono `/PUR/` e salva i file elaborati in una cartella di output.
+Script Python che legge file XML, corregge le occorrenze errate nei tag `<causale>` che contengono `/PUR/` e salva i file elaborati in una cartella di output. Accetta automaticamente sia file `.xml` sia `.XML`.
 
 ## Uso
 
@@ -26,7 +26,6 @@ Il file `config.json` gestisce i parametri principali:
 
 - `input_dir`: cartella input
 - `output_dir`: cartella output
-- `xml_extensions`: estensioni da considerare
 - `recursive`: scansione ricorsiva
 - `copy_unmodified_xml`: copia anche gli XML senza modifiche
 - `clear_output_before_run`: svuota `output_dir` prima di eseguire

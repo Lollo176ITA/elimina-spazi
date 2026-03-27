@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-03-27T10:09:49.650140+00:00",
+  "config_file": "/Users/lorenzo/Projects/elimina-spazi/config.json",
+  "input_dir": "/Users/lorenzo/Projects/elimina-spazi/in",
+  "output_dir": "/Users/lorenzo/Projects/elimina-spazi/out",
+  "zip_output": true,
+  "zip_file": "/Users/lorenzo/Projects/elimina-spazi/out.zip",
+  "delete_input_after_success": false,
+  "input_deleted": false,
+  "files_scanned": 54,
+  "files_written": 54,
+  "files_with_changes": 7,
+  "occurrences_changed": 67,
+  "parse_errors": [],
+  "config": {
+    "input_dir": "/Users/lorenzo/Projects/elimina-spazi/in",
+    "output_dir": "/Users/lorenzo/Projects/elimina-spazi/out",
+    "recursive": true,
+    "copy_unmodified_xml": true,
+    "clear_output_before_run": false,
+    "zip_output": true,
+    "zip_file_name": "out.zip",
+    "delete_input_after_success": false,
+    "continue_on_xml_error": true,
+    "print_each_change": false,
+    "summary_file": "run_summary.json"
+  }
+}

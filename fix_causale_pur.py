@@ -37,7 +37,6 @@ class FileProcessResult:
 class AppConfig:
     input_dir: Path
     output_dir: Path
-    xml_extensions: tuple[str, ...]
     recursive: bool
     copy_unmodified_xml: bool
     clear_output_before_run: bool
@@ -52,7 +51,6 @@ class AppConfig:
 DEFAULT_CONFIG: dict[str, Any] = {
     "input_dir": "in",
     "output_dir": "out",
-    "xml_extensions": [".xml"],
     "recursive": True,
     "copy_unmodified_xml": True,
     "clear_output_before_run": False,
@@ -163,13 +161,12 @@ def write_tree(
     )
 
 
-def iter_xml_files(input_dir: Path, recursive: bool, extensions: tuple[str, ...]) -> list[Path]:
+def iter_xml_files(input_dir: Path, recursive: bool) -> list[Path]:
     matcher = input_dir.rglob if recursive else input_dir.glob
-    allowed_extensions = {extension.lower() for extension in extensions}
     return sorted(
         path
         for path in matcher("*")
-        if path.is_file() and path.suffix.lower() in allowed_extensions
+        if path.is_file() and path.suffix.lower() == ".xml"
     )
 
 
@@ -233,18 +230,6 @@ def build_config(
 
     input_dir_value = cli_input_dir or Path(ensure_string(raw["input_dir"], "input_dir"))
     output_dir_value = cli_output_dir or Path(ensure_string(raw["output_dir"], "output_dir"))
-    xml_extensions_raw = raw["xml_extensions"]
-
-    if not isinstance(xml_extensions_raw, list) or not xml_extensions_raw:
-        raise ValueError("Il campo 'xml_extensions' deve essere una lista non vuota.")
-
-    xml_extensions = tuple(
-        extension if extension.startswith(".") else f".{extension}"
-        for extension in (
-            ensure_string(item, "xml_extensions[]").lower()
-            for item in xml_extensions_raw
-        )
-    )
 
     input_dir = (base_dir / input_dir_value).resolve() if not input_dir_value.is_absolute() else input_dir_value.resolve()
     output_dir = (base_dir / output_dir_value).resolve() if not output_dir_value.is_absolute() else output_dir_value.resolve()
@@ -252,7 +237,6 @@ def build_config(
     return AppConfig(
         input_dir=input_dir,
         output_dir=output_dir,
-        xml_extensions=xml_extensions,
         recursive=ensure_bool(raw["recursive"], "recursive"),
         copy_unmodified_xml=ensure_bool(raw["copy_unmodified_xml"], "copy_unmodified_xml"),
         clear_output_before_run=ensure_bool(raw["clear_output_before_run"], "clear_output_before_run"),
@@ -311,7 +295,7 @@ def main() -> int:
         print(f"Configurazione non valida: {exc}", file=sys.stderr)
         return 2
 
-    xml_files = iter_xml_files(config.input_dir, config.recursive, config.xml_extensions)
+    xml_files = iter_xml_files(config.input_dir, config.recursive)
     if not xml_files:
         print("Nessun file XML trovato.")
         return 0
